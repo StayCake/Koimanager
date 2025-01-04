@@ -38,7 +38,7 @@ object WSHandler {
     // 설마 어떤 미친놈이 아이디를 이따구로 하겠어?
     const val SERVER_MESSAGE_ID = "==!<[KOI_SERVER_ALERT]>!=="
 
-    val logger: Logger = LogManager.getLogger("Ktor-Server")
+    val logger: Logger = LogManager.getLogger("KC-Server")
 
     /**
      * 소켓과 연결된 세션을 저장하는 맵
@@ -279,7 +279,6 @@ object WSHandler {
 
             logger.info("User {} Logged out at {}", user.userId, Clock.System.now())
             serverAlert("[${user.conType.name}] ${logoutTarget.nick ?: user.userId} 님이 로그아웃 했습니다.")
-            //logoutTarget.session = null
             WSChat.online.remove(logoutTarget)
             loggedInWith = null
             statusUpdate()
@@ -582,8 +581,11 @@ object WSHandler {
                             FAIL_NO_PERMISSION -> outgoing.send(Frame.Text("wsc:logout_fail_no_permission"))
                             FAIL_SAME_USER -> false
                         }
-                        statusUpdate()
                         flush()
+                        outgoing.close()
+                        incoming.consumeAsFlow()
+                        close(CloseReason(CloseReason.Codes.NORMAL, "Client Logout"))
+                        statusUpdate()
                     }
                     "chat" -> {
                         val key = currentSession.loggedInWith?.encKey
@@ -655,8 +657,10 @@ object WSHandler {
                 }
             }
             incoming.consumeAsFlow()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             logger.info("Transmission Stopped from {}", sessionMap[this]?.originIP)
+            if (e !is CancellationException) logger.info("STOP - {}", e.stackTraceToString())
+            else logger.info("STOP - Connection Closed")
             // 이거 안하면 나중에 채널 끊길때마다 정신 못차립니다 요놈.
         }
         //send(data)

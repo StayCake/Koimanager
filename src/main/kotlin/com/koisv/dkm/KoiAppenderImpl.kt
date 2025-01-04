@@ -42,6 +42,7 @@ class KoiAppenderImpl private constructor(
             "KM-DBot" -> loggerGui.discordLog
             "IRC" -> loggerGui.ircLog
             "KTor" -> loggerGui.ktor_MLog
+            "KoiChat" -> loggerGui.ktor_wscLog
             else -> loggerGui.todo4
         }
 

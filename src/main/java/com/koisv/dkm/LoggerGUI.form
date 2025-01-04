@@ -297,7 +297,7 @@
                   </scrollpane>
                   <component id="ee8cb" class="javax.swing.JScrollBar" binding="scrollBar2" default-binding="true">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
                   </component>
@@ -321,15 +321,20 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="6ad1b" class="javax.swing.JTextPane" binding="ktor_wscLog">
+                      <component id="a7811" class="javax.swing.JTextArea" binding="ktor_wscLog">
                         <constraints/>
-                        <properties/>
+                        <properties>
+                          <dragEnabled value="true"/>
+                          <editable value="false"/>
+                          <lineWrap value="true"/>
+                          <wrapStyleWord value="true"/>
+                        </properties>
                       </component>
                     </children>
                   </scrollpane>
-                  <component id="de7e5" class="javax.swing.JScrollBar" binding="scrollBar5" default-binding="true">
+                  <component id="de7e5" class="javax.swing.JScrollBar" binding="ktor_wscSB">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
                   </component>
@@ -409,4 +414,7 @@
       </grid>
     </children>
   </grid>
+  <inspectionSuppressions>
+    <suppress inspection="NoLabelFor"/>
+  </inspectionSuppressions>
 </form>

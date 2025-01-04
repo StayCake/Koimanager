@@ -54,7 +54,7 @@ object DataManager {
     const val SQL_BATCH_SIZE = 100
 
     private val dGTName: String = "discord_guilds" + if (debug) "_t" else ""
-    private val sqlURL: String = "jdbc:mysql://" + (if (debug) "192.168.0.6" else "192.168.0.5") + ":3036/koimanager"
+    private val sqlURL: String = "jdbc:mysql://" + (if (debug) "192.168.0.6" else "localhost") + ":3036/koimanager"
     private val jdbcTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)
 
     val sqlCon: Connection = try {
@@ -317,7 +317,7 @@ object DataManager {
                     volume = VALUES(volume),
                     shuffle = VALUES(shuffle),
                     `repeat` = VALUES(`repeat`),
-                    notify = VALUES(notify),
+                    notify_channel = VALUES(notify_channel),
                     update_channel = VALUES(update_channel)
             """.trimIndent()
 

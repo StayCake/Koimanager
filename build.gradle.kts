@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 // Extracted constants for readability
-val MYSQL_CONNECTOR_VERSION = "9.1.0"
-val LAVAPLAYER_VERSION = "2.2.2"
-val YOUTUBE_LIBRARY_VERSION = "1.10.2"
-val INTELLIJ_FORMS_RT_VERSION = "7.0.3"
+val sqlVer = "9.1.0"
+val lavaVer = "2.2.2"
+val lavaYTVer = "1.11.3"
+val formsRTVer = "7.0.3"
 val ktorVer: String by project
 val kordVer: String by project
 val log4jVer: String by project
@@ -14,10 +14,10 @@ plugins {
     kotlin("jvm") version "2.1.0"
     kotlin("kapt") version "2.1.0"
     kotlin("plugin.serialization") version "2.1.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "9.0.0-beta4"
     id("com.android.application") version "8.7.3" apply false
     id("org.jetbrains.kotlin.android") version "2.1.0" apply false
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" apply false
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0" apply false
 }
 
 group = "com.koisv"
@@ -44,14 +44,14 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktorVer")
     implementation("io.ktor:ktor-server-auth-jvm:$ktorVer")
     implementation("io.ktor:ktor-server-sessions-jvm:$ktorVer")
-    implementation("io.ktor:ktor-server-jetty-jakarta:$ktorVer")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktorVer")
     implementation("io.ktor:ktor-server-websockets:$ktorVer")
     implementation("io.ktor:ktor-network:$ktorVer")
     implementation("io.ktor:ktor-network-tls:$ktorVer")
-    implementation("com.mysql:mysql-connector-j:$MYSQL_CONNECTOR_VERSION")
-    implementation("dev.arbjerg:lavaplayer:$LAVAPLAYER_VERSION")
-    implementation("dev.lavalink.youtube:v2:$YOUTUBE_LIBRARY_VERSION")
-    implementation("com.intellij:forms_rt:$INTELLIJ_FORMS_RT_VERSION")
+    implementation("com.mysql:mysql-connector-j:$sqlVer")
+    implementation("dev.arbjerg:lavaplayer:$lavaVer")
+    implementation("dev.lavalink.youtube:v2:$lavaYTVer")
+    implementation("com.intellij:forms_rt:$formsRTVer")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVer")
 }
 tasks {
@@ -74,6 +74,6 @@ tasks {
     }
     create<Copy>("dist") {
         from (shadowJar)
-        into(".\\")
+        into(".\\dist")
     }
 }

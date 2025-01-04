@@ -1,10 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-val skikoVersion = "0.8.19"
 val ktorVer = "3.0.3"
-val log4jVer = "2.24.2"
-//val nav_version = "2.8.5"
+val log4jVer = "2.24.3"
 
 plugins {
     kotlin("jvm")
@@ -12,8 +10,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-group = "com.koisv"
-version = "1.0-SNAPSHOT"
+val group = "com.koisv"
+val version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -101,7 +99,7 @@ tasks {
                 outputBaseDir = file("output")
                 vendor = "KeiKoi"
                 packageName = "KoiChat Desktop"
-                packageVersion = "1.0.0"
+                packageVersion = version.toString()
             }
         }
     }

@@ -5,6 +5,7 @@
         <KoiAppender name="IRC"/>
         <KoiAppender name="KTor"/>
         <KoiAppender name="KM-DBot"/>
+        <KoiAppender name="KoiChat"/>
         <KoiAppender name="KoiAppender"/>
 
         <Console name="console" target="SYSTEM_ERR">
@@ -24,7 +25,7 @@
     </appenders>
     <loggers>
         <!-- Root Logger Configuration -->
-        <root level="debug">
+        <root level="FATAL">
             <appender-ref ref="file"/>
             <appender-ref ref="console"/>
         </root>
@@ -49,7 +50,16 @@
         <logger name="ktor.application" level="debug" additivity="false">
             <AppenderRef ref="KTor"/>
         </logger>
-        <logger name="Ktor-Server" level="trace" additivity="false">
+        <logger name="io.ktor" level="debug" additivity="false">
+            <AppenderRef ref="KTor"/>
+        </logger>
+        <logger name="KTor-Server" level="debug" additivity="false">
+            <AppenderRef ref="KTor"/>
+        </logger>
+        <logger name="KC-Server" level="trace" additivity="false">
+            <AppenderRef ref="KoiChat"/>
+        </logger>
+        <logger name="org.eclipse.jetty" level="info" additivity="false">
             <AppenderRef ref="KTor"/>
         </logger>
     </loggers>

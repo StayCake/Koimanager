@@ -8,9 +8,9 @@ import com.koisv.dkm.discord.KoiManager
 import com.koisv.dkm.discord.data.Bot
 import com.koisv.dkm.irc.IRCServer
 import com.koisv.dkm.ktor.module
-import io.ktor.server.application.Application
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
-import io.ktor.server.jetty.jakarta.*
+import io.ktor.server.netty.*
 import kotlinx.coroutines.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -18,27 +18,13 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import kotlin.coroutines.CoroutineContext
 import kotlin.io.encoding.ExperimentalEncodingApi
-import kotlin.time.Duration.Companion.seconds
 import kotlin.uuid.ExperimentalUuidApi
 
 const val DEBUG_FLAG = "debug"
 
 lateinit var discord: KoiManager
 lateinit var ircServer: IRCServer
-val ktor = embeddedServer(Jetty, configure = {
-    configureServer = {
-        connector {
-            host = "0.0.0.0"
-            port = 8921
-        }
-        connectionGroupSize = 4
-        workerGroupSize = 8
-        callGroupSize = 16
-        shutdownGracePeriod = 5000
-        shutdownTimeout = 10000
-    }
-    idleTimeout = 20.seconds
-}, module = Application::module)
+val ktor = embeddedServer(Netty, host = "0.0.0.0", port = 8921, module = Application::module)
 var debug = false
 
 suspend fun main(args: Array<String>) {
